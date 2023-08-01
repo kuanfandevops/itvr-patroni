@@ -3,9 +3,18 @@ on:
   pull_request:
     types: [closed]
     branches:
-      - 'main'       
+      - 'main'     
+  workflow_dispatch:
+    inputs:
+      new-release:
+        description: 'The name of the new release'
+        required: true
+
+env:
+  NEW_BRANCH_NAME: release-2.0.0
+
 jobs:
-  build:
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,3 +28,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
           prerelease: false
+
+  create-branch:
+      needs: bucreate-releaseild
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v2
+        - name: Create Branch
+          run: |
+            git checkout -b ${{ env.NEW_BRANCH_NAME }}
+            git push origin ${{ env.NEW_BRANCH_NAME }}

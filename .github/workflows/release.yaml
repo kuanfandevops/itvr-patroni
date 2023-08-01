@@ -8,17 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v0.1.15
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event.pull_request.head.ref }}
-          release_name: Release ${{ github.event.pull_request.head.ref }}
+          name: ${{ github.event.pull_request.head.ref }}
+          tag_name: Release ${{ github.event.pull_request.head.ref }}
           body: |
-            Release created from merged pull request.
-            Pull Request Title: ${{ github.event.pull_request.title }}
-            Pull Request Description: ${{ github.event.pull_request.body }}
+            ${{ github.event.pull_request.body }}
           draft: false
           prerelease: false

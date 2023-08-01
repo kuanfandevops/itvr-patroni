@@ -13,7 +13,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ github.event.pull_request.head.ref }}
-          tag_name: Release ${{ github.event.pull_request.head.ref }}
+          tag_name: ${{ github.event.pull_request.head.ref }}
           body: |
             ${{ github.event.pull_request.body }}
           token: ${{ secrets.GITHUB_TOKEN }}

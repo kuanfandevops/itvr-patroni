@@ -30,7 +30,7 @@ jobs:
           prerelease: false
 
   create-branch:
-      needs: bucreate-releaseild
+      needs: create-release
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Code
